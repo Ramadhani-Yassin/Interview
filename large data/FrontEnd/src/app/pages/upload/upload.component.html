@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>CSV Upload</h2>
+  <form (submit)="onSubmit($event)">
+    <input type="file" accept=".csv" (change)="onFileChange($event)" required />
+    <select [(ngModel)]="charset" name="charset">
+      <option value="UTF-8">UTF-8</option>
+      <option value="ISO-8859-1">ISO-8859-1</option>
+    </select>
+    <button type="submit" [disabled]="!file || uploading">{{ uploading ? 'Uploading...' : 'Upload' }}</button>
+  </form>
+
+  <h3 class="mt">Uploads</h3>
+  <table *ngIf="uploads.length" class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>File</th>
+        <th>Rows</th>
+        <th>Columns</th>
+        <th>Uploaded</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of uploads">
+        <td>{{u.id}}</td>
+        <td>{{u.fileName}}</td>
+        <td>{{u.numberOfRows}}</td>
+        <td>{{u.numberOfColumns}}</td>
+        <td>{{u.uploadedAt | date:'short'}}</td>
+        <td><a [routerLink]="['/uploads', u.id]">View</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

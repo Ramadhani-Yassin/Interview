@@ -1,0 +1,37 @@
+<div class="container" *ngIf="upload">
+  <h2>Upload #{{upload.id}} - {{upload.fileName}}</h2>
+
+  <div class="toolbar">
+    <input [(ngModel)]="search" placeholder="Search..." (keyup.enter)="load()" />
+    <select [(ngModel)]="sortBy" (change)="load()">
+      <option value="id">id</option>
+      <option *ngFor="let h of headers; let i = index" [value]="'col' + (i+1).toString().padStart(2,'0')">{{h}}</option>
+    </select>
+    <select [(ngModel)]="direction" (change)="load()">
+      <option value="ASC">ASC</option>
+      <option value="DESC">DESC</option>
+    </select>
+    <button (click)="export()">Export Excel</button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th *ngFor="let h of headers">{{h}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of rows">
+        <td>{{r.id}}</td>
+        <td *ngFor="let h of headers; let i = index">{{ r['col' + (i+1).toString().padStart(2,'0')] }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pager">
+    <button (click)="prev()" [disabled]="page===0">Prev</button>
+    <span>Page {{page+1}} / {{totalPages}}</span>
+    <button (click)="next()" [disabled]="page+1>=totalPages">Next</button>
+  </div>
+</div>
