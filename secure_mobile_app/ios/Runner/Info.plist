@@ -41,6 +41,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>We use the camera to capture your profile photo.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We access your photos so you can choose a profile picture.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Face ID is used to unlock the app securely.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

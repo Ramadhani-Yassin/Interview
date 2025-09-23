@@ -35,6 +35,31 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  # State management
+  provider: ^6.1.2
+
+  # Secure storage for sensitive data
+  flutter_secure_storage: ^9.2.2
+
+  # Biometric authentication
+  local_auth: ^2.3.0
+
+  # Device information and unique ID
+  device_info_plus: ^11.1.0
+
+  # Image picking (camera/gallery)
+  image_picker: ^1.1.2
+
+  # Local database (SQLite)
+  sqflite: ^2.3.3+1
+  path_provider: ^2.1.5
+
+  # Networking (HTTPS)
+  http: ^1.2.2
+  
+  # Crypto for hashing PIN/password
+  crypto: ^3.0.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
