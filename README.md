@@ -2,7 +2,7 @@
 
 # UBX Assignment Submission
 
-The interview submission comprises of three Practical Tasks. <br> starting with Mobile App Development Scope with Flutter, System Development Tasks and Spring boot Interview Practical Assignment
+The interview submission comprises of three Practical Tasks. <br> - Mobile App Development Scope with Flutter <br> - System Development Tasks <br> - Spring boot Interview Practical Assignment
 ---
 
 
