@@ -7,6 +7,7 @@ import com.miniCore.BankingSystem.security.JwtService;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,20 +30,24 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest req) {
-		Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.username, req.password));
-		String token = jwtService.generateToken(auth.getName());
-		return ResponseEntity.ok(new TokenResponse(token));
+		try {
+			Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.username, req.password));
+			String token = jwtService.generateToken(auth.getName());
+			return ResponseEntity.ok(new TokenResponse(token));
+		} catch (BadCredentialsException ex) {
+			return ResponseEntity.status(401).body("Invalid credentials");
+		}
 	}
 
 	@PostMapping("/bootstrap-admin")
 	public ResponseEntity<?> bootstrapAdmin(@RequestBody LoginRequest req) {
-		if (userRepository.existsByUsername(req.username)) return ResponseEntity.badRequest().body("User exists");
-		User u = new User();
+		User u = userRepository.findByUsername(req.username).orElseGet(User::new);
 		u.setUsername(req.username);
 		u.setPassword(passwordEncoder.encode(req.password));
 		u.setRole(UserRole.ADMIN);
+		u.setActive(true);
 		userRepository.save(u);
-		return ResponseEntity.ok("Admin created");
+		return ResponseEntity.ok("Admin ready");
 	}
 
 	public static class LoginRequest {
